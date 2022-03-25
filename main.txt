@@ -1,0 +1,34 @@
+import sys
+print(sys.version)
+import consumer_management as cm
+     
+def main():
+    no_consumers=int(input("Enter the no. of consumers:"))
+    
+        # Fill your code here for getting inputs, creating appropobject object, and  
+        # invoke methods for performing operations as per the requirement specification.
+    eb_obj=cm.ConsumerManagement()
+    for i in range(0,no_consumers):
+        print("Enter the consumer details ",i+1,":")
+        consumer_id,consumer_name,units_consumed=input().split(':')
+        eb_obj.add_consumer_details(consumer_id,consumer_name,float(units_consumed))
+       
+       
+       
+    units_consumed=float(input("Enter the units consumed:"))
+        
+        # Fill your code for invoking the appropriate method for displaying consumer
+        # details as per the specification.
+    consumer_rec=eb_obj.view_consumer_details(units_consumed)
+        # print(consumer_rec)
+    if len(consumer_rec)!=0:
+        print("No. of consumers:",len(consumer_rec))
+        for key,val in consumer_rec.items():
+            print("Consumer id:",key, " - Total charges:",val)
+    else:
+        print("No consumers found")
+        
+        
+        
+if __name__=='__main__':
+    main() 

@@ -1,0 +1,130 @@
+# Please do not change the given template.  Fill your code only in the provided places.
+#consumer
+class Consumer:
+    
+    # Write the code for the parameterized constructor here
+    def __init__(self,consumer_id,consumer_name,units_consumed):
+        self.__consumer_id = consumer_id
+        self.__consumer_name = consumer_name
+        self.__units_consumed = units_consumed
+        self.__total_charges = 0.0
+    
+    def get_consumer_id(self):
+        return self.__consumer_id
+        
+    def set_consumer_id(self,consumer_id):
+        self.__consumer_id=consumer_id
+        
+    
+    def get_consumer_name(self):
+        return self.__consumer_name
+        
+    def set_consumer_name(self,consumer_name):
+        self.__consumer_name=consumer_name
+        
+    def get_units_consumed(self):
+        return self.__units_consumed
+   
+    def set_units_consumed(self,units_consumed):
+        self.__units_consumed=units_consumed
+    
+    def get_total_charges(self):
+        return self.__total_charges
+    
+    def set_total_charges(self,total_charges):
+        self.__total_charges=total_charges
+    
+        
+    def calculate_total_charges(self):
+        # Fill your code here 
+        if self.__units_consumed > 300:
+            self.__total_charges = 500 + ((self.__units_consumed-300)*3)
+        elif self.__units_consumed > 100:
+            self.__total_charges = 100 + ((self.__units_consumed-100)*2)
+        else:
+            if self.__units_consumed >= 50:
+                self.__total_charges = self.__units_consumed
+            else:
+                self.__total_charges = 50
+        
+        return
+
+
+
+
+#management
+
+
+
+# Please do not alter the given template
+# You can add any number of methods and attributes as you required without changing the given template
+
+import consumer as cm
+
+class ConsumerManagement:
+    def __init__(self):
+        self.__consumer_list=[]
+    
+
+    def add_consumer_details(self,consumer_id,consumer_name,units_consumed):
+        #Fill your code here
+        p_obj = cm.Consumer(consumer_id,consumer_name,units_consumed)
+        p_obj.calculate_total_charges()
+        self.__consumer_list.append(p_obj)
+        
+        return
+        
+        
+    
+    def view_consumer_details(self, units_consumed):
+        #Fill your code here
+        con_dict = {}
+        for i in self.__consumer_list:
+            if i.get_units_consumed()>units_consumed:
+                con_dict[i.get_consumer_id()] = i.get_total_charges()
+        
+        return con_dict #TODO CHANGE THIS RETURN VALUE
+
+
+
+
+
+#main
+
+# Please do not alter the given template
+
+import consumer_management as cm
+
+def main():
+    no_consumers=int(input("Enter the no. of consumers:"))
+
+    # Fill your code here for getting inputs, creating appropobject object, and  
+    # invoke methods for performing operations as per the requirement specification.
+    eb_obj = cm.ConsumerManagement()
+    for i in range(0,no_consumers):
+        print("Enter consumer details " +  str(i+1) + ":")
+        consumer_id, consumer_name, units_consumed = input().split(':')
+        eb_obj.add_consumer_details(consumer_id, consumer_name, float(units_consumed))
+        
+#    units_consumed = float(input("Enter the units consumed: "))
+    
+    
+    
+    
+   
+    units_consumed=float(input("Enter the units consumed:"))
+    
+    # Fill your code for invoking the appropriate method for displaying consumer
+    # details as per the specification.
+    consumer_rec = eb_obj.view_consumer_details(units_consumed)
+    
+    if len(consumer_rec)!=0:
+        print("No. of consumers: " + str(len(consumer_rec)))
+        for key , val in consumer_rec.items():
+            print("Consumer id:" + str(key) + " - Total charges: " + str(val))
+    else:
+        print("No consumers found")
+    
+    
+if __name__=='__main__':
+    main()     
